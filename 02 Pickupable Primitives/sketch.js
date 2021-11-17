@@ -25,7 +25,7 @@ function draw() {
 function drawRectangle(){
   //renders the rectangle and also checks for mouse interactions
   updateEdgePositions();
-  print(rLeft + " " + rRight + " " + rTop + " " + rBottom);
+  print(rLeft + " " + rRight + " " + rTop + " " + rBottom + " " + pickedUp + " " + mouseOver);
 
   if(mouseX > rLeft && mouseX < rRight && mouseY > rTop && mouseY < rBottom){
     fill(220,10,255);
@@ -34,6 +34,12 @@ function drawRectangle(){
   else{
     fill(255);
     mouseOver = false;
+  }
+
+  if(pickedUp){
+    //can this be improved?? to not autocenter on the mouse?
+    x = mouseX;
+    y = mouseY;
   }
 
   rect(x,y, rSize, rSize/2);
@@ -46,3 +52,31 @@ function updateEdgePositions(){
   rTop = y - rSize/4;
   rBottom = y + rSize/4;
 }
+
+function mousePressed(){
+  if(mouseOver){
+    pickedUp = true;
+  }
+}
+
+function mouseReleased(){
+  pickedUp = false;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
