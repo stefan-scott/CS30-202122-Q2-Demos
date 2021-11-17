@@ -1,10 +1,48 @@
 // Pickupable Primitives
+// Mr. Scott
+// Nov 17th, 2021
+// Simple Application of mouse-movable (pickupable) shapes
 
+//global variables
+let x, y, rSize;
+let rLeft, rRight, rTop, rBottom;  //edge positions of rectangle
+let pickedUp = false;  //are we currently moving the object?
+let mouseOver = false; //are we hovering on the object?
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  rectMode(CENTER);
+  x = width/2;
+  y = height/2;
+  rSize = 200;  //rHeight will be half of rSize
 }
 
 function draw() {
-  background(220);
+  background(0);
+  drawRectangle();
+}
+
+function drawRectangle(){
+  //renders the rectangle and also checks for mouse interactions
+  updateEdgePositions();
+  print(rLeft + " " + rRight + " " + rTop + " " + rBottom);
+
+  if(mouseX > rLeft && mouseX < rRight && mouseY > rTop && mouseY < rBottom){
+    fill(220,10,255);
+    mouseOver = true;
+  }
+  else{
+    fill(255);
+    mouseOver = false;
+  }
+
+  rect(x,y, rSize, rSize/2);
+}
+
+function updateEdgePositions(){
+  //update the left/right/top/bottom variables for our rectangle
+  rLeft = x - rSize/2;
+  rRight = x + rSize/2;
+  rTop = y - rSize/4;
+  rBottom = y + rSize/4;
 }
