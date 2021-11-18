@@ -8,6 +8,7 @@ let x, y, rSize;
 let rLeft, rRight, rTop, rBottom;  //edge positions of rectangle
 let pickedUp = false;  //are we currently moving the object?
 let mouseOver = false; //are we hovering on the object?
+let xOff, yOff; //used to allow for picking the rectangle up at any point
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -27,7 +28,7 @@ function drawRectangle(){
   updateEdgePositions();
   print(rLeft + " " + rRight + " " + rTop + " " + rBottom + " " + pickedUp + " " + mouseOver);
 
-  if(mouseX > rLeft && mouseX < rRight && mouseY > rTop && mouseY < rBottom){
+  if(mouseX > rLeft && mouseX < rRight && mouseY > rTop && mouseY < rBottom || pickedUp){
     fill(220,10,255);
     mouseOver = true;
   }
@@ -38,8 +39,8 @@ function drawRectangle(){
 
   if(pickedUp){
     //can this be improved?? to not autocenter on the mouse?
-    x = mouseX;
-    y = mouseY;
+    x = mouseX - xOff;
+    y = mouseY - yOff;
   }
 
   rect(x,y, rSize, rSize/2);
@@ -56,6 +57,10 @@ function updateEdgePositions(){
 function mousePressed(){
   if(mouseOver){
     pickedUp = true;
+    // now update offset (to account for case where mouse is not in the center 
+    // of the rectangle)
+    xOff = mouseX - x;
+    yOff = mouseY - y;
   }
 }
 
