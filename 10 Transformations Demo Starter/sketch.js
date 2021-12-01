@@ -12,27 +12,32 @@ function setup() {
 function draw() {
   background(255);
   drawBasicGrid(220);
-
-
-
+  
 
   //transformation one: TRANSLATION
+  // push();  //make a second coordinate system
+  // translate(200,60);
+  // rectangleRed(0,0);
+  // pop();
 
-
-
-  //add push()  pop()
-
-
-
+  // rectangleBlue(0,0);
 
   //transformation two: SCALE
 
-
+  // rectangleRed(40,0);
+  // let scaleAmount = map(mouseX, 0, width, 0.3, 6);
+  // translate(40*scaleAmount);
+  // scale(scaleAmount);
+  // drawBasicGrid(150);
+  // rectangleBlue(0,0);
 
 
   //transformation three: ROTATION
   //reminder: rotations are measured in radians, not degrees! Functions can help with the conversion...
-
+  translate(width/2,height/2);
+  rotate(radians(frameCount));
+  //drawBasicGrid(150);
+  rectangleBlue(100,0);
 
 
   //Combinations of Transformations
