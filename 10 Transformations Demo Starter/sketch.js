@@ -50,7 +50,7 @@ function draw() {
 
   push();
   translate(x, y);
-  scale(1,sFactor);
+  scale(sFactor);
   rotate(radians(angle));
 
   face(0, 0);
@@ -65,11 +65,13 @@ function mouseWheel(event){
   //position → scrolling down (100)
   if(event.delta > 0){
     //scroll down:
-    sFactor = sFactor - 0.1;  //constrain before zero??
+    
+    sFactor = sFactor - 0.1;  //constrain before zero?
   }
   else if (event.delta < 0){
     sFactor += 0.1;
   }
+  sFactor = constrain(sFactor, 0.2 , 3);
 }
 
 function quickInput() {
