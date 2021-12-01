@@ -3,7 +3,7 @@
 
 
 let originalSpacing = 20;
-
+let x = 0, y = 0, angle = 0, sFactor = 1;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -12,7 +12,7 @@ function setup() {
 function draw() {
   background(255);
   drawBasicGrid(220);
-  
+
 
   //transformation one: TRANSLATION
   // push();  //make a second coordinate system
@@ -34,17 +34,56 @@ function draw() {
 
   //transformation three: ROTATION
   //reminder: rotations are measured in radians, not degrees! Functions can help with the conversion...
-  translate(width/2,height/2);
-  rotate(radians(frameCount));
-  //drawBasicGrid(150);
-  rectangleBlue(100,0);
+  // rectMode(CENTER);
+  // translate(width/2,height/2);
+  // rotate(radians(frameCount));
+
+  // drawBasicGrid(150);
+  // rectangleBlue(0,0);
 
 
   //Combinations of Transformations
+  quickInput();
+  //update our position
+  x = lerp(x, mouseX, 0.1);
+  y = lerp(y, mouseY, 0.1);
 
+  push();
+  translate(x, y);
+  scale(1,sFactor);
+  rotate(radians(angle));
 
+  face(0, 0);
+
+  pop();
 
 }
+
+function mouseWheel(event){
+  //print(event.delta);
+  //negative → scrolling up (-100 normal speed)
+  //position → scrolling down (100)
+  if(event.delta > 0){
+    //scroll down:
+    sFactor = sFactor - 0.1;  //constrain before zero??
+  }
+  else if (event.delta < 0){
+    sFactor += 0.1;
+  }
+}
+
+function quickInput() {
+  if (keyIsPressed) {
+    if (keyCode === LEFT_ARROW) {
+      angle -= 5;
+    }
+    else if (keyCode === RIGHT_ARROW) {
+      angle += 5;
+    }
+  }
+}
+
+
 
 
 function face(x, y) {
