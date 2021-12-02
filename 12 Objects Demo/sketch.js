@@ -3,12 +3,25 @@
 // December 2, 2021
 // Some random walkers defined as objects
 
+let walkers = [];
+const NUM_WALKERS = 4000;
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  noStroke();
+  background(0);
+  for (let i = 0; i < NUM_WALKERS ; i++){
+    let tempColor = color(random(255),random(255),random(255));
+    walkers.push(new Walker(random(width), random(height), tempColor));
+  }
 }
 
 function draw() {
-  background(220);
+  //background(0);
+  for(let i = 0; i < walkers.length; i++){
+    walkers[i].move();
+    walkers[i].display();
+  }
 }
 
 
@@ -25,7 +38,7 @@ class Walker{
 
   // class methods/functions
   move(){
-    let choice = Math.floor(random(4));
+    let myChoice = Math.floor(random(4));
     if(myChoice === 0) this.x -= this.speed;   //LEFT
     else if (myChoice === 1) this.x += this.speed //RIGHT
     else if (myChoice === 2) this.y -= this.speed //UP
