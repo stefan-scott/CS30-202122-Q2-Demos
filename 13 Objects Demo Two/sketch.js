@@ -8,6 +8,7 @@ let dotCollection = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  initDots();
 }
 
 function draw() {
@@ -18,12 +19,27 @@ function draw() {
   }
 }
 
-function mousePressed(){
-  dotCollection.push(new Dot(mouseX, mouseY, 10));
+function initDots(){
+  //use a while loop, to make a bunch of linearly aligned dots
+  let spacing = 25;
+  let currentX = spacing/2;
+  let currentY = spacing/2;
+  while(currentX < width){ //generates a new X position
+    while(currentY< height){
+      dotCollection.push(new Dot(currentX, currentY, 20));
+      currentY += spacing;
+    }
+    currentX += spacing;
+    currentY = spacing/2;
+  }
 }
 
+// function mousePressed(){
+//   dotCollection.push(new Dot(mouseX, mouseY, 10));
+// }
 
 
+////// CLASS BELOW THIS POINT //////////
 
 class Dot{
   //class constructor
