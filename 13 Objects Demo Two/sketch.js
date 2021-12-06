@@ -9,10 +9,11 @@ let dotCollection = [];
 function setup() {
   createCanvas(windowWidth, windowHeight);
   initDots();
+  noStroke();
 }
 
 function draw() {
-  background(220);
+  background(200);
 
   for(let i = 0; i < dotCollection.length; i++){
     dotCollection[i].process();
@@ -21,12 +22,12 @@ function draw() {
 
 function initDots(){
   //use a while loop, to make a bunch of linearly aligned dots
-  let spacing = 25;
+  let spacing = 12;
   let currentX = spacing/2;
   let currentY = spacing/2;
   while(currentX < width){ //generates a new X position
     while(currentY< height){
-      dotCollection.push(new Dot(currentX, currentY, 20));
+      dotCollection.push(new Dot(currentX, currentY, 10));
       currentY += spacing;
     }
     currentX += spacing;
@@ -57,7 +58,21 @@ class Dot{
   }
 
   setColor(){
-    //
+    // change the color based on the proximity of the cursor
+    // mouse cursor hovering over object?
+    this.currentDistance = dist(this.x,this.y,mouseX,mouseY);
+    if(this.currentDistance < this.diameter/2){
+      this.c = color(0,0,255);  
+    }
+    else if(this.currentDistance < this.diameter * 2){
+      this.c = color(0,0,255,100);
+    }
+    else if (this.currentDistance < this.diameter * 4){
+      this.c = color(0,0,255,30);
+    }
+    else{
+      this.c = color(255,255,255);
+    }
   }
 
   process(){
